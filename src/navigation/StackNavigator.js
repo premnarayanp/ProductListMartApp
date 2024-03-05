@@ -2,6 +2,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabNavigator from './BottomTabNavigator';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Arrivals, Popular, Recommendations, } from '../screens/HomeSectionsScreen/index'
+
 const Stack = createNativeStackNavigator();
 const myProfilePic = require('../assets/my_photos.png');
 const brandLogo = require('../assets/brandLogo.png');
@@ -48,6 +50,20 @@ const StackNavigator = () => {
                         </View>
                     ),
                 }}
+            />
+
+            <Stack.Screen
+                name='Arrivals'
+                component={Arrivals}
+            />
+
+            <Stack.Screen
+                name="Popular"
+                component={Popular}
+            />
+            <Stack.Screen
+                name="Recommendations"
+                component={Recommendations}
             />
         </Stack.Navigator>
     );
