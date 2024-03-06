@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native"
-import { PopularItemCard } from '../index';
+import { ArrivalsItemCard } from '../index';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width + 80
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
@@ -9,7 +9,7 @@ const CarouselCardItem = ({ item, index }) => {
     return (
         <View style={styles.CardItemContainer} key={index}  >
             {
-                item.map((item, itemIndex) => <PopularItemCard item={item} key={"PopularItemCard" + index + itemIndex} />)
+                item.map((item, itemIndex) => <ArrivalsItemCard item={item} key={"ArrivalsItemCard" + index + itemIndex} />)
             }
         </View>
     )

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const PopularItemCard = ({ item }) => {
+const ArrivalsItemCard = ({ item }) => {
     return (
         <View style={styles.popularItemCard} >
             <Image alt='hi' style={styles.image}
@@ -13,7 +13,7 @@ const PopularItemCard = ({ item }) => {
     )
 }
 
-export default PopularItemCard;
+export default ArrivalsItemCard;
 
 
 const styles = StyleSheet.create({
