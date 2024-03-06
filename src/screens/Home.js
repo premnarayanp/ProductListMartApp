@@ -1,9 +1,17 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import HomeMenuNavigation from '../navigation/HomeMenuNavigation';
+import CarouselCards from '../components/Carousel/CarouselCards';
+
 export default function Home({ navigation }) {
     return (
-        <View>
+        <View >
             <HomeMenuNavigation navigation={navigation} />
+
+            {/*------------------- Arrival section-----------------  */}
+            <View style={style.arrivalsContainer}>
+                <CarouselCards />
+            </View>
+
         </View>
     )
 }
@@ -11,5 +19,10 @@ export default function Home({ navigation }) {
 
 const style = StyleSheet.create({
     homeContainer: {
-    }
+    },
+    arrivalsContainer: {
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
