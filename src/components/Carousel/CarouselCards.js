@@ -8,7 +8,7 @@ const CarouselCards = () => {
     const [index, setIndex] = React.useState(0)
     const isCarousel = React.useRef(null)
     return (
-        <View style={{ height: 270, padding: 0, backgroundColor: "white", }}>
+        <View style={{ height: 330, padding: 0, backgroundColor: "white", }}>
             <Carousel
                 layout='tinder'
                 layoutCardOffset={9}

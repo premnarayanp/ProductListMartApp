@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     image: {
-        width: 80,
-        height: 80,
+        width: 100,
+        height: 100,
         borderWidth: 1,
         borderColor: 'gray',
         borderRadius: 100,

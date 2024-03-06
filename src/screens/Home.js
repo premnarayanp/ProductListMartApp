@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import HomeMenuNavigation from '../navigation/HomeMenuNavigation';
 import CarouselCards from '../components/Carousel/CarouselCards';
-import { ProductCard, HeaderCard } from "../components/index";
+import { ProductCard, HeaderCard, SortingAndFilter } from "../components/index";
 import { topPopularProducts, topRecommendedProducts } from '../constants/index'
 
 export default function Home({ navigation }) {
@@ -18,10 +18,10 @@ export default function Home({ navigation }) {
             {/*------------------- Popular section-----------------  */}
 
             <View style={style.popularProductsSection}>
+                <SortingAndFilter />
                 {
                     topPopularProducts.map((item, itemIndex) => < ProductCard item={item} key={"popularItemCard" + itemIndex} />)
                 }
-
                 <HeaderCard title={" All Popular Items"} />
             </View>
 
@@ -33,8 +33,6 @@ export default function Home({ navigation }) {
 
                 <HeaderCard title={" All RecommendedProducts.."} />
             </View>
-
-
 
         </ScrollView>
     )
@@ -56,6 +54,7 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         flexWrap: 'wrap',
+        position: 'relative'
     },
     RecommendedProductsSection: {
         backgroundColor: 'white',
