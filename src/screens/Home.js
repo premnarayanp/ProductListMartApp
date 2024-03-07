@@ -29,18 +29,24 @@ export default function Home({ navigation }) {
             {/*------------------- Popular section-----------------  */}
 
             <View style={style.popularProductsSection}>
-                <SortingAndFilter productList={productList} updateProductsState={updateProductsState} />
+                <SortingAndFilter productList={productList} originalProductList={topPopularProducts} updateProductsState={updateProductsState} />
                 {
                     productList.map((item, itemIndex) => < ProductCard item={item} key={"popularItemCard" + itemIndex} />)
                 }
-                <HeaderCard title={" All Popular Items"} />
+                {
+                    productList.length < 1 && <Text style={{ color: "red", fontSize: 30, fontWeight: 700, height: 200 }}>Nothing Any Products</Text>
+                }
+                <HeaderCard title={"All Popular Items"} />
             </View>
 
             {/*------------------- Recommended section-----------------  */}
             <View style={style.RecommendedProductsSection}>
-                <SortingAndFilter productList={recommendedList} updateProductsState={setRecommendedList} />
+                <SortingAndFilter productList={recommendedList} originalProductList={topRecommendedProducts} updateProductsState={setRecommendedList} />
                 {
                     recommendedList.map((item, itemIndex) => < ProductCard item={item} key={"recommendedListItemCard" + itemIndex} />)
+                }
+                {
+                    recommendedList.length < 1 && <Text style={{ color: "red", fontSize: 30, fontWeight: 700, }}>Nothing Any Products</Text>
                 }
 
                 <HeaderCard title={" All RecommendedProducts.."} />

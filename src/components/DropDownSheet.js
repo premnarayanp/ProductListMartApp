@@ -1,16 +1,17 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 //import { topPopularProducts } from '../constants/index'
-export default function DropDownSheet({ productList, updateProductsState, sheetData, sheetType, onCloseSheet }) {
-    const sortAndUpdateProducts = (sortingData) => {
-        // if (sortingData.key === 'relevance') {
-        //     updateProductsState(topPopularProducts);
-        // } else {
-        //     sortingData.customSort(productList, sortingData.key, sortingData.order, sortingData.isNumberSorting);
-        //     updateProductsState([...productList]);
-        // }
-        sortingData.customSort(productList, sortingData.key, sortingData.order, sortingData.isNumberSorting);
-        updateProductsState([...productList]);
-        onCloseSheet();
+export default function DropDownSheet({ productList, originalProductList, updateProductsState, sheetData, sheetType, onCloseSheet }) {
+    const sortAndUpdateProducts = (sheetDataItems) => {
+
+        if (sheetType === "sortingData") {
+            sheetDataItems.customSort(productList, sheetDataItems.key, sheetDataItems.order, sheetDataItems.isNumberSorting);
+            updateProductsState([...productList]);
+            onCloseSheet();
+        } else {
+            const filteredData = sheetDataItems.customFilter(originalProductList, sheetDataItems.key, sheetDataItems.compareVal, sheetDataItems.filterRelation);
+            updateProductsState(filteredData);
+            onCloseSheet();
+        }
     }
 
     return (
@@ -42,3 +43,10 @@ const style = StyleSheet.create({
         width: 200,
     }
 });
+
+// if (sortingData.key === 'relevance') {
+//     updateProductsState(topPopularProducts);
+// } else {
+//     sortingData.customSort(productList, sortingData.key, sortingData.order, sortingData.isNumberSorting);
+//     updateProductsState([...productList]);
+// }

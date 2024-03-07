@@ -3,7 +3,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import DropDownSheet from './DropDownSheet';
 
-export default function SortingAndFilter({ productList, updateProductsState }) {
+export default function SortingAndFilter({ productList, originalProductList, updateProductsState }) {
     const [showSortingList, setShowSortingList] = useState(false);
     const [showFilteringList, setShoFilteringList] = useState(false);
 
@@ -27,12 +27,12 @@ export default function SortingAndFilter({ productList, updateProductsState }) {
             </View>
             {
                 showSortingList && <View style={{ position: 'absolute', top: 40, left: 20, zIndex: 500 }}>
-                    <DropDownSheet sheetData={sortingData} sheetType="sortingData" onCloseSheet={onClickSorting} productList={productList} updateProductsState={updateProductsState} />
+                    <DropDownSheet sheetData={sortingData} sheetType="sortingData" onCloseSheet={onClickSorting} productList={productList} originalProductList={originalProductList} updateProductsState={updateProductsState} />
                 </View>
             }
             {
                 showFilteringList && <View style={{ position: 'absolute', top: 40, right: 20, zIndex: 500 }}>
-                    <DropDownSheet sheetData={filteringData} sheetType="filteringData" onCloseSheet={onClickFilter} productList={productList} updateProductsState={updateProductsState} />
+                    <DropDownSheet sheetData={filteringData} sheetType="filteringData" onCloseSheet={onClickFilter} productList={productList} originalProductList={originalProductList} updateProductsState={updateProductsState} />
                 </View>
             }
 
@@ -127,26 +127,88 @@ const sortingData = [
     }
 ];
 
+
+
+//----------------------Custom Sort function--------------------------
+const customFilter = (arr, key, compareVal, filterRelation) => {
+    if (filterRelation === "===") {
+        return arr.filter(items => items[key] === compareVal);
+    } else if (filterRelation === "<=") {
+        return arr.filter(items => items[key] <= compareVal);
+    } else if (filterRelation === ">=") {
+        return arr.filter(items => items[key] >= compareVal);
+    } else if (filterRelation === "closeFilter") {
+        return arr;
+    }
+    return [];
+}
+
+
 const filteringData = [
     {
+        title: "close Filter",
+        filterRelation: "closeFilter",
+        compareVal: "",
+        key: "",
+        customFilter: customFilter,
+    },
+    {
         title: "Price 100  and Blow",
-        action: () => { },
+        filterRelation: "<=",
+        compareVal: 100,
+        key: "price",
+        customFilter: customFilter,
+    },
+    {
+        title: "Price 500 and Blow",
+        filterRelation: "<=",
+        compareVal: 500,
+        key: "price",
+        customFilter: customFilter,
     },
     {
         title: "Price 1000 and Blow",
-        action: () => { },
+        filterRelation: "<=",
+        compareVal: 1000,
+        key: "price",
+        customFilter: customFilter,
     },
     {
         title: "Dry Food",
-        action: () => { },
+        filterRelation: "===",
+        compareVal: "Dry Food",
+        key: "category",
+        customFilter: customFilter,
+    },
+    {
+        title: "Savory Pastry",
+        filterRelation: "===",
+        compareVal: "savory pastry",
+        key: "category",
+        customFilter: customFilter,
     },
     {
         title: "Sweets",
-        action: () => { },
+        filterRelation: "===",
+        compareVal: "sweets",
+        key: "category",
+        customFilter: customFilter,
     },
     {
-        title: "Rating 4",
-        action: () => { },
+        title: "Rating 4 and above",
+        filterRelation: ">=",
+        compareVal: 4,
+        key: "rating",
+        customFilter: customFilter,
+
+    },
+    {
+        title: "Rating 6",
+        filterRelation: "===",
+        compareVal: 6,
+        key: "rating",
+        customFilter: customFilter,
+
     }
 ]
 
