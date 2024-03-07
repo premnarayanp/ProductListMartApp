@@ -51,7 +51,7 @@ const customSort = (arr, key, order, isNumberSorting) => {
         return a[key] - b[key];
     }
 
-    // A compare fun that compares on Number val property of two objects
+    //  compare  in descending order
     function compareByNumberValDescending(a, b) {
         return b[key] - a[key];
     }
@@ -59,6 +59,10 @@ const customSort = (arr, key, order, isNumberSorting) => {
     // A compare fun that compares on String val property of two objects
     function compareByStringVal(a, b) {
         return a[key].localeCompare(b[key]);
+    }
+
+    function compareByStringValDescendingOrder(a, b) {
+        return b[key].localeCompare(a[key]);
     }
 
     if (isNumberSorting) {
@@ -69,15 +73,21 @@ const customSort = (arr, key, order, isNumberSorting) => {
         }
 
     } else {
-        arr.sort(compareByStringVal);
+        if (order < 0) {
+            arr.sort(compareByStringValDescendingOrder);
+        } else {
+            arr.sort(compareByStringVal);
+        }
     }
 }
 
 const sortingData = [
     {
         title: "Relevance",
-        key: "relevance",
-        customSort: (arr) => { },
+        key: "id",
+        customSort: customSort,
+        isNumberSorting: false,
+        order: 1
     },
     {
         title: "By Rating",
@@ -105,7 +115,7 @@ const sortingData = [
         customSort: customSort,
         isNumberSorting: false,
         key: "date",
-        order: 1
+        order: -1
     },
 
     {

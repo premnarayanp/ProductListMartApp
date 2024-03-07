@@ -7,9 +7,11 @@ import { useEffect, useState } from 'react';
 
 export default function Home({ navigation }) {
     const [productList, updateProductsState] = useState([]);
+    const [recommendedList, setRecommendedList] = useState([]);
     useEffect(() => {
         function fetchData() {
             updateProductsState(topPopularProducts);
+            setRecommendedList(topRecommendedProducts);
         }
         fetchData();
     }, []);
@@ -36,8 +38,9 @@ export default function Home({ navigation }) {
 
             {/*------------------- Recommended section-----------------  */}
             <View style={style.RecommendedProductsSection}>
+                <SortingAndFilter productList={recommendedList} updateProductsState={setRecommendedList} />
                 {
-                    topRecommendedProducts.map((item, itemIndex) => < ProductCard item={item} key={"popularItemCard" + itemIndex} />)
+                    recommendedList.map((item, itemIndex) => < ProductCard item={item} key={"recommendedListItemCard" + itemIndex} />)
                 }
 
                 <HeaderCard title={" All RecommendedProducts.."} />

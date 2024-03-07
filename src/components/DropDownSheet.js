@@ -1,14 +1,15 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-// import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { topPopularProducts } from '../constants/index'
+//import { topPopularProducts } from '../constants/index'
 export default function DropDownSheet({ productList, updateProductsState, sheetData, sheetType, onCloseSheet }) {
     const sortAndUpdateProducts = (sortingData) => {
-        if (sortingData.key === 'relevance') {
-            updateProductsState(topPopularProducts);
-        } else {
-            sortingData.customSort(productList, sortingData.key, sortingData.order, sortingData.isNumberSorting);
-            updateProductsState([...productList]);
-        }
+        // if (sortingData.key === 'relevance') {
+        //     updateProductsState(topPopularProducts);
+        // } else {
+        //     sortingData.customSort(productList, sortingData.key, sortingData.order, sortingData.isNumberSorting);
+        //     updateProductsState([...productList]);
+        // }
+        sortingData.customSort(productList, sortingData.key, sortingData.order, sortingData.isNumberSorting);
+        updateProductsState([...productList]);
         onCloseSheet();
     }
 
