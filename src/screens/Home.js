@@ -36,7 +36,7 @@ export default function Home({ navigation }) {
                 {
                     productList.length < 1 && <Text style={{ color: "red", fontSize: 30, fontWeight: 700, height: 200 }}>Nothing Any Products</Text>
                 }
-                <HeaderCard title={"All Popular Items"} />
+                <HeaderCard title={"All Popular Items"} navigation={navigation} navTo="Popular" />
             </View>
 
             {/*------------------- Recommended section-----------------  */}
@@ -49,7 +49,7 @@ export default function Home({ navigation }) {
                     recommendedList.length < 1 && <Text style={{ color: "red", fontSize: 30, fontWeight: 700, }}>Nothing Any Products</Text>
                 }
 
-                <HeaderCard title={" All RecommendedProducts.."} />
+                <HeaderCard title={" All RecommendedProducts.."} navigation={navigation} navTo="Recommendations" />
             </View>
 
         </ScrollView>

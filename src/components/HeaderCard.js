@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function HeaderCard({ title, action }) {
+export default function HeaderCard({ title, navigation, navTo }) {
     return (
         <View style={style.popularProductHeader}>
             <Text style={{ fontSize: 20, color: "gray", fontWeight: 700 }}>{title}</Text>
-            <TouchableOpacity style={{ padding: 5, borderWidth: 1, borderColor: "blue", borderRadius: 12 }}>
+            <TouchableOpacity onPress={() => navigation.getParent().navigate(navTo, { data: 'Popular' })} style={{ padding: 5, borderWidth: 1, borderColor: "blue", borderRadius: 12 }}>
                 {/* <Text style={{ fontSize: 13, color: 'blue', fontWeight: 700 }}>View More</Text> */}
                 <MaterialCommunityIcons name="arrow-right-thick" color='blue' size={20} />
             </TouchableOpacity>
