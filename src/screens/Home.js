@@ -3,8 +3,17 @@ import HomeMenuNavigation from '../navigation/HomeMenuNavigation';
 import CarouselCards from '../components/Carousel/CarouselCards';
 import { ProductCard, HeaderCard, SortingAndFilter } from "../components/index";
 import { topPopularProducts, topRecommendedProducts } from '../constants/index'
+import { useEffect, useState } from 'react';
 
 export default function Home({ navigation }) {
+    const [productList, updateProductsState] = useState([]);
+    useEffect(() => {
+        function fetchData() {
+            updateProductsState(topPopularProducts);
+        }
+        fetchData();
+    }, []);
+
     return (
         <ScrollView >
             <HomeMenuNavigation navigation={navigation} />
@@ -18,9 +27,9 @@ export default function Home({ navigation }) {
             {/*------------------- Popular section-----------------  */}
 
             <View style={style.popularProductsSection}>
-                <SortingAndFilter />
+                <SortingAndFilter productList={productList} updateProductsState={updateProductsState} />
                 {
-                    topPopularProducts.map((item, itemIndex) => < ProductCard item={item} key={"popularItemCard" + itemIndex} />)
+                    productList.map((item, itemIndex) => < ProductCard item={item} key={"popularItemCard" + itemIndex} />)
                 }
                 <HeaderCard title={" All Popular Items"} />
             </View>

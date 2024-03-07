@@ -3,7 +3,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import DropDownSheet from './DropDownSheet';
 
-export default function SortingAndFilter({ dataList, updateProducts }) {
+export default function SortingAndFilter({ productList, updateProductsState }) {
     const [showSortingList, setShowSortingList] = useState(false);
     const [showFilteringList, setShoFilteringList] = useState(false);
 
@@ -26,10 +26,14 @@ export default function SortingAndFilter({ dataList, updateProducts }) {
                 </TouchableOpacity>
             </View>
             {
-                showSortingList && <View style={{ position: 'absolute', top: 40, left: 20, zIndex: 500 }}><DropDownSheet sheetData={sortingData} sheetType="sortingData" /></View>
+                showSortingList && <View style={{ position: 'absolute', top: 40, left: 20, zIndex: 500 }}>
+                    <DropDownSheet sheetData={sortingData} sheetType="sortingData" onCloseSheet={onClickSorting} productList={productList} updateProductsState={updateProductsState} />
+                </View>
             }
             {
-                showFilteringList && <View style={{ position: 'absolute', top: 40, right: 20, zIndex: 500 }}><DropDownSheet sheetData={filteringData} sheetType="filteringData" /></View>
+                showFilteringList && <View style={{ position: 'absolute', top: 40, right: 20, zIndex: 500 }}>
+                    <DropDownSheet sheetData={filteringData} sheetType="filteringData" onCloseSheet={onClickFilter} productList={productList} updateProductsState={updateProductsState} />
+                </View>
             }
 
         </>
@@ -40,31 +44,76 @@ export default function SortingAndFilter({ dataList, updateProducts }) {
     )
 }
 
+//----------------------Custom Sort function--------------------------
+const customSort = (arr, key, order, isNumberSorting) => {
+    // A compare fun that compares on Number val property of two objects
+    function compareByNumberValue(a, b) {
+        return a[key] - b[key];
+    }
+
+    // A compare fun that compares on Number val property of two objects
+    function compareByNumberValDescending(a, b) {
+        return b[key] - a[key];
+    }
+
+    // A compare fun that compares on String val property of two objects
+    function compareByStringVal(a, b) {
+        return a[key].localeCompare(b[key]);
+    }
+
+    if (isNumberSorting) {
+        if (order < 0) {
+            arr.sort(compareByNumberValDescending);
+        } else {
+            arr.sort(compareByNumberValue);
+        }
+
+    } else {
+        arr.sort(compareByStringVal);
+    }
+}
+
 const sortingData = [
     {
         title: "Relevance",
-        action: () => { },
+        key: "relevance",
+        customSort: (arr) => { },
     },
     {
         title: "By Rating",
-        action: () => { },
+        customSort: customSort,
+        key: "rating",
+        isNumberSorting: true,
+        order: 1
     },
     {
         title: "Price--Low to High",
-        action: () => { },
+        customSort: customSort,
+        key: "price",
+        isNumberSorting: true,
+        order: 1
     },
     {
         title: "Price--High to Low",
-        action: () => { },
+        customSort: customSort,
+        key: "price",
+        isNumberSorting: true,
+        order: -1
     },
     {
         title: "Newest First",
-        action: () => { },
+        customSort: customSort,
+        isNumberSorting: false,
+        key: "date",
+        order: 1
     },
 
     {
         title: "Calory",
-        action: () => { },
+        customSort: customSort,
+        isNumberSorting: true,
+        key: "calory",
+        order: 1
     }
 ];
 
